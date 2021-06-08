@@ -1,14 +1,14 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Main from "./screens/Main";
 import {ConnectedRouter} from "connected-react-router";
 import PropTypes from 'prop-types';
 import ContactsScreen from "./screens/ContactsScreen/contactsScreen";
 import AddContactForm from "./forms/ContactForms/addContactsForm";
-
-
-export const HOME = "/home";
-export const ROUTE_CONTACTS_SCREEN = "/contacts";
-export const ROUTE_ADD_CONTACT = "/add";
+import {
+    HOME,
+    ROUTE_CONTACTS_SCREEN,
+    ROUTE_ADD_CONTACT,
+} from "./routeConstants";
 
 
 function Router({history, loggedIn}) {
@@ -26,6 +26,9 @@ function Router({history, loggedIn}) {
                         <Route path={ROUTE_ADD_CONTACT}>
                             <AddContactForm/>
                         </Route>
+                        <Route path="/">
+                            <Redirect to={HOME}/>
+                        </Route>
                     </Switch>
                 )}
                 {!loggedIn && (
@@ -38,6 +41,9 @@ function Router({history, loggedIn}) {
                         </Route>
                         <Route path={ROUTE_ADD_CONTACT}>
                             <AddContactForm/>
+                        </Route>
+                        <Route path="/">
+                            <Redirect to={HOME}/>
                         </Route>
                     </Switch>
                 )}

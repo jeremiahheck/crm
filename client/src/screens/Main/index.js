@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Grid} from "@material-ui/core";
-import {ROUTE_CONTACTS_SCREEN} from "../../Routes";
+import {HOME, ROUTE_CONTACTS_SCREEN} from "../../routeConstants";
 import {useHistory} from "react-router";
 
 const Main = () => {

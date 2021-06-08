@@ -26,5 +26,4 @@ Contact.defaultProps = {
     email: "ContactDefault",
 }
 
-
 export default Contact;

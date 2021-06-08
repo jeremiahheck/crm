@@ -2,7 +2,7 @@ import React from "react";
 import ContactList from "../../common/contactsList";
 import {Button, Grid} from "@material-ui/core";
 import {useHistory} from "react-router";
-import {ROUTE_ADD_CONTACT} from "../../Routes";
+import {HOME, ROUTE_ADD_CONTACT} from "../../routeConstants";
 import { connect } from 'react-redux';
 
 const ContactsScreen = (props) => {
@@ -11,13 +11,17 @@ const ContactsScreen = (props) => {
 
     return (
         <Grid>
+            <ContactList contacts={contacts}/>
             <Button
                 children={"Add Contact"}
                 onClick={() =>
                 {history.push(ROUTE_ADD_CONTACT)}}
             />
-
-            <ContactList contacts={contacts}/>
+            <Button
+                children={"Main Screen"}
+                onClick={() =>
+                {history.push(HOME)}}
+            />
         </Grid>
     )
 }
