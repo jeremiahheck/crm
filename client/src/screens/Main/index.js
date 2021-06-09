@@ -1,12 +1,19 @@
 import React from "react";
 import {Button, Grid} from "@material-ui/core";
-import {HOME, ROUTE_CONTACTS_SCREEN} from "../../routeConstants";
+import {ROUTE_CONTACTS_SCREEN} from "../../routeConstants";
 import {useHistory} from "react-router";
+import { connect } from 'react-redux';
+import PropTypes from "prop-types";
+import {fetchInit} from "../../init/actions";
 
-const Main = () => {
+const Main = (props) => {
+    const { loading, name } = props;
     const history = useHistory();
     return (
       <Grid>
+          <h2>
+              {loading ? {name} : "Nothing Happened :("}
+          </h2>
           <h1>This is the Main Screen.</h1>
           <Button
               children={"Contacts Screen"}
@@ -17,4 +24,26 @@ const Main = () => {
     );
 }
 
-export default Main;
+
+Main.prototype = {
+    name: PropTypes.string.isRequired,
+    loading: PropTypes.bool.isRequired,
+    fetchInit: PropTypes.func.isRequired,
+}
+
+Main.defaultProps = {
+    name: null,
+    loading: false,
+    fetchInit: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+    loading: state.loading,
+    name: state.name,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchInit: (payload) => dispatch(fetchInit(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
