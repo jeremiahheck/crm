@@ -1,3 +1,5 @@
+package com.crm.restservice;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,10 +12,10 @@ public class RestServiceApplication {
     }
 
 //    @Bean
-//    public CommandLineRunner demo(ContactsRepository contactsRepository) {
+//    public CommandLineRunner demo(com.crm.restservice.Contacts.ContactsRepository contactsRepository) {
 //        return (args) -> {
 //            // save a few customers
-//            contactsRepository.save(new Contact("Jeremiah", "Heck", "emial@email"));
+//            contactsRepository.save(new com.crm.restservice.Contacts.Contact("Jeremiah", "Heck", "emial@email"));
 //        };
 //    }
 
