@@ -1,21 +1,18 @@
 package com.crm.restservice.Contacts;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 
-
 @RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ContactsController {
 
     @Autowired
     private ContactsRepository contactsRepository;
+
 
     @GetMapping("/contacts")
     public ArrayList<Contact> contact() {
@@ -29,12 +26,12 @@ public class ContactsController {
         }
     }
 
-    @PostMapping(path="/contacts/addContact")
+    @PostMapping(path="/addContact")
     public void createContact(Contact contact) {
         contactsRepository.save(contact);
     }
 
-    @PutMapping(path="/contacts/updateContact/{id}")
+    @PutMapping(path="/updateContact/{id}")
     public void updateContact(Contact newContact,@PathVariable(value="id") long id) {
         for (Contact elem: contactsRepository.findAll()) {
             if (elem.getId() == id) {
@@ -45,7 +42,7 @@ public class ContactsController {
         }
     }
 
-    @DeleteMapping(path="/contacts/deleteContact/{id}")
+    @DeleteMapping(path="/deleteContact/{id}")
     public void deleteContact(@PathVariable(value="id")long id) throws Exception {
         contactsRepository.deleteById(id);
     }

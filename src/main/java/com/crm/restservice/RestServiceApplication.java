@@ -2,6 +2,9 @@ package com.crm.restservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 
 @SpringBootApplication
@@ -12,10 +15,12 @@ public class RestServiceApplication {
     }
 
 //    @Bean
-//    public CommandLineRunner demo(com.crm.restservice.Contacts.ContactsRepository contactsRepository) {
-//        return (args) -> {
-//            // save a few customers
-//            contactsRepository.save(new com.crm.restservice.Contacts.Contact("Jeremiah", "Heck", "emial@email"));
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/contacts").allowedOrigins("http://localhost:8080");
+//            }
 //        };
 //    }
 
