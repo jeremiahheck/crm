@@ -8,10 +8,8 @@ import {fetchContacts} from "../../redux/contacts/contactsActions";
 import PropTypes from 'prop-types';
 
 const ContactsScreen = (props) => {
-    const {contacts, fetchContacts} = props;
+    const {contacts} = props;
     const history = useHistory();
-
-
 
     return (
         <Grid>
@@ -26,11 +24,6 @@ const ContactsScreen = (props) => {
                 onClick={() =>
                 {history.push(HOME)}}
             />
-            <Button
-                children={"Get Contacts"}
-                onClick={() =>
-                {fetchContacts()}}
-            />
         </Grid>
     )
 }
@@ -40,11 +33,6 @@ ContactsScreen.protoTypes = {
     fetchContacts: PropTypes.func.isRequired,
 }
 
-
-const mapDispatchToProps = (dispatch) => ({
-    fetchContacts: () => dispatch(fetchContacts()),
-});
-
 function mapStateToProps(state) {
     return {
         contacts: state.contact.Contacts
@@ -52,4 +40,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsScreen)
+export default connect(mapStateToProps)(ContactsScreen)

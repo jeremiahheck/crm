@@ -1,9 +1,6 @@
 import React from "react";
 import {Formik} from "formik";
 
-// const form = (props) => {
-//
-//     return (
-//
-//     )
-// }
+const form = (props) => {
+
+}

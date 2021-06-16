@@ -1,9 +1,6 @@
 import {
     ADD_CONTACT,
-    DELETE_CONTACT,
-    FETCH_CONTACT,
     FETCH_CONTACTS,
-    UPDATE_CONTACT
 } from "./contactTypes";
 // ========================================
 
@@ -14,10 +11,13 @@ const initialState = {
 const contactsReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_CONTACTS :
+            //alert("fetched");
             return {
                 ...state,
                 Contacts: action.payload,
             }
+        case ADD_CONTACT :
+            alert(action.payload);
         case '@@router/LOCATION_CHANGE': {
             const {
                 payload: { location: { pathname = '' } = {} } = {},

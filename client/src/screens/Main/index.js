@@ -12,7 +12,7 @@ const Main = (props) => {
     return (
       <Grid>
           <h2>
-              {loading ? {name} : "Nothing Happened :("}
+              {/*{loading ? {name} : "Nothing Loaded :("}*/}
           </h2>
           <h1>This is the Main Screen.</h1>
           <Button
