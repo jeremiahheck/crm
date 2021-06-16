@@ -17,12 +17,14 @@ public class ContactsController {
     @GetMapping("/contacts")
     public ArrayList<Contact> contact() {
         if (contactsRepository.findAll() != null) {
-            contactsRepository.save(new Contact("Jeremiah", "Heck", "email.email"));
+            if (!contactsRepository.findById(1).isPresent()) {
+                contactsRepository.save(new Contact("Jeremiah", "Heck", "email.email"));
+            }
             return (ArrayList<Contact>)contactsRepository.findAll();
         } else {
-            ArrayList<Contact> sumthin = new ArrayList<Contact>();
-            sumthin.add(new Contact("Jeremiah", "Heck", "email.email"));
-            return sumthin;
+            ArrayList<Contact> something = new ArrayList<Contact>();
+            something.add(new Contact("Jeremiah", "Heck", "email.email"));
+            return something;
         }
     }
 

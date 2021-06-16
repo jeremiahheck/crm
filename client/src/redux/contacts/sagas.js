@@ -1,9 +1,27 @@
-import {BASE_URI, ROUTE_CONTACTS_SCREEN} from "../../routeConstants";
+import {BASE_URI, ROUTE_CONTACTS_SCREEN, API} from "../../routeConstants";
+import { takeLatest, takeEvery, call, put } from 'redux-saga/effects'
+import {ContactsAPI} from "../api";
+import {fetchContacts} from "./contactsActions";
 
-export default function* contactsSaga() {
-    if (window.location.href === `${BASE_URI}${ROUTE_CONTACTS_SCREEN}`) {
-        fetch(`http://localhost:8080/api/contacts`)
-            .then(response => response.json())
-            .then(data => console.log(data));
-    }
+const contactsAPI = new ContactsAPI;
+
+export default function* getContacts() {
+    yield takeEvery(fetchContacts, getContactsAPI)
+}
+
+function* getContactsAPI(action) {
+    const loggedIn = true;
+     if (loggedIn === true) {
+         try {
+             //fetch(`${API}${ROUTE_CONTACTS_SCREEN}`)
+                 //.then(response => response.json())
+                 //.then(data =>  fetchContacts(data));
+             const data = yield call(contactsAPI.fetchData, {response: action.payload})
+             yield put(fetchContacts(data));
+         } catch(e) {
+             console.log(e);
+         }
+     } else {
+         console.log("Not logged in!");
+     }
 }

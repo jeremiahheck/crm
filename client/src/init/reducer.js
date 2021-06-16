@@ -1,6 +1,7 @@
 import {
     FETCH_INIT_DATA
 } from './types'
+import {FETCH_CONTACTS} from "../redux/contacts/contactTypes";
 
 const initialState = {
     loading: false,
