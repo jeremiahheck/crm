@@ -9,6 +9,7 @@ import {fetchInit} from "../../init/actions";
 const Main = (props) => {
     const { loading, name } = props;
     const history = useHistory();
+
     return (
       <Grid>
           <h2>
@@ -18,7 +19,8 @@ const Main = (props) => {
           <Button
               children={"Contacts Screen"}
               onClick={() =>
-              {history.push(ROUTE_CONTACTS_SCREEN)}}
+              {history.push(ROUTE_CONTACTS_SCREEN)
+              }}
           />
       </Grid>
     );
@@ -43,7 +45,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchInit: (payload) => dispatch(fetchInit(payload)),
+    fetchInit: (payload) => dispatch(fetchInit(payload)), //response from saga
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

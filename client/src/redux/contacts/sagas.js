@@ -1,22 +1,38 @@
-import { takeEvery, takeLatest, call, put } from 'redux-saga/effects'
-import {fetchContactsAPI, addContactsAPI} from "../api";
-import {addContact, fetchContacts} from "./contactsActions";
+import {
+    takeLeading,
+    takeLatest,
+    takeEvery,
+    fork,
+    all,
+    call,
+    put
+} from 'redux-saga/effects'
+import {
+    fetchContactsAPI,
+} from "../api";
+import {
+    fetchContactsResponse,
+    fetchContacts
+} from "./contactsActions";
 
 
-export default function* contactsSaga() {
-    yield takeLatest(fetchContacts, getContactsAPI)
-}
-
-function* getContactsAPI(action) {
+function* getContactsSaga(action) {
     const loggedIn = true;
      if (loggedIn === true) {
          try {
              const data = yield call(fetchContactsAPI, {response: action.payload})
-             yield put(fetchContacts(data));
+             yield put(fetchContactsResponse(data));
          } catch(e) {
              console.log(e);
          }
      } else {
-         console.log("Not logged in!");
+         alert("Not logged in!");
      }
+}
+
+
+export default function* () {
+    yield all([
+        takeLeading(fetchContacts, getContactsSaga),
+    ]);
 }

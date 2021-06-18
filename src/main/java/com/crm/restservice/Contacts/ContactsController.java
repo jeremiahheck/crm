@@ -29,7 +29,7 @@ public class ContactsController {
     }
 
     @PostMapping(path="/addContact")
-    public void createContact(Contact contact) {
+    public void createContact(@RequestBody Contact contact) {
         contactsRepository.save(contact);
     }
 

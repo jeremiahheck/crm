@@ -1,56 +1,67 @@
 import React, {useState} from "react";
-import {ROUTE_CONTACTS_SCREEN, HOME} from "../../../routeConstants";
+import {ROUTE_CONTACTS_SCREEN, ROUTE_ADD_CONTACT, HOME, API} from "../../../routeConstants";
 import {Button, Grid} from "@material-ui/core";
 import {useHistory} from "react-router";
 import {connect} from "react-redux";
-import {addContact} from "../../../redux/contacts/contactsActions";
-import {bindActionCreators} from "redux";
+import PropTypes from "prop-types";
 
-const AddContactForm = () => {
+const AddContactForm = (props) => {
+    const {Contacts} = props;
     const history = useHistory();
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-
-    const handleSubmit = () => {
-        const contact = [
-            firstName,
-            lastName,
-            email,
-        ]
-        alert('A name was submitted' + firstName + lastName + email);
-        addContact(contact);
+    const [contact, setContact] = useState({
+        firstName : "post",
+        lastName : "post",
+        email : "post",
+    });
+    const handleSubmit = (event) => {
+        const contactJSON = JSON.stringify({
+            "id": Contacts.size+1,
+            "firstName": contact.firstName,
+            "lastName": contact.lastName,
+            "email": contact.email
+        });
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        const requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: contactJSON,
+            redirect: 'follow'
+        };
+        fetch(`${API}${ROUTE_ADD_CONTACT}`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
     }
 
-    const handleFirstNameChange = (event) => {
-        setFirstName(event.target.value);
-    }
+    const handleChange = (event) => {
+        event.preventDefault();
+        const { name, value } = event.target;
+        setContact(prevContact => ({
+            ...prevContact,
+            [name]: value
+        }));
+    };
 
-    const handleLastNameChange = (event) => {
-        setLastName(event.target.value);
-    }
-
-    const handleEmailChange = (event) => {
-        setEmail(event.target.value);
-    }
 
     return (
         <Grid>
             <h1>
                 Add Contacts Form.
             </h1>
-            <form onSubmit={handleSubmit}>
+
+            <form onSubmit={() => handleSubmit()}>
                 <label>
                     First Name:
-                    <input type="text" value={firstName} onChange={handleFirstNameChange} />
+                    <input type="text" name={"firstName"} value={contact.firstName} onChange={handleChange} />
                 </label>
                 <label>
                     Last Name:
-                    <input type="text" value={lastName} onChange={handleLastNameChange} />
+                    <input type="text" name={"lastName"} value={contact.lastName} onChange={handleChange} />
                 </label>
                 <label>
                     Email:
-                    <input type="text" value={email} onChange={handleEmailChange} />
+                    <input type="text" name={"email"} value={contact.email} onChange={handleChange} />
                 </label>
                 <input type="submit" value="Submit" />
             </form>
@@ -69,12 +80,14 @@ const AddContactForm = () => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addContact: dispatch(addContact())
-        //addContact: (contact) => dispatch(addContact()),
-
-    }
+AddContactForm.protoTypes = {
+    Contacts: PropTypes.array,
 }
 
-export default connect( null, mapDispatchToProps)(AddContactForm);
+function mapStateToProps(state) {
+    return {
+        Contacts: state.contact.Contacts
+    };
+}
+
+export default connect(mapStateToProps)(AddContactForm);

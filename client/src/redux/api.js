@@ -14,19 +14,3 @@ export function fetchContactsAPI() {
             .catch(error => console.log(error))
     })
 }
-
-export function addContactsAPI(contact) {
-    return new Promise(function(resolve,reject) {
-        const url = `${API}${ROUTE_ADD_CONTACT}`;
-        const options = {
-            method: 'POST',
-
-        }
-        fetch(url, options)
-            .then((res) => {return res.json()})
-            .then((response) => {
-                resolve(response)
-            })
-            .catch(error => console.log(error))
-    })
-}

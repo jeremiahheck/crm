@@ -1,15 +1,19 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ContactList from "../../common/contactsList";
 import {Button, Grid} from "@material-ui/core";
 import {useHistory} from "react-router";
 import {HOME, ROUTE_ADD_CONTACT} from "../../routeConstants";
-import { connect } from 'react-redux';
-import {fetchContacts} from "../../redux/contacts/contactsActions";
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const ContactsScreen = (props) => {
-    const {contacts} = props;
+    const {returnedContacts} = props;
+    const [contacts, setContacts] = useState([{}]);
     const history = useHistory();
+
+    useEffect(() => {
+        setContacts(returnedContacts);
+    })
 
     return (
         <Grid>
@@ -29,15 +33,14 @@ const ContactsScreen = (props) => {
 }
 
 ContactsScreen.protoTypes = {
-    contacts: PropTypes.array.isRequired,
-    fetchContacts: PropTypes.func.isRequired,
+    returnedContacts: PropTypes.array,
 }
+
 
 function mapStateToProps(state) {
     return {
-        contacts: state.contact.Contacts
+        returnedContacts: state.contact.Contacts
     };
 }
-
 
 export default connect(mapStateToProps)(ContactsScreen)

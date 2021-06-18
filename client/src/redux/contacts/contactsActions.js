@@ -1,24 +1,23 @@
 import {
     FETCH_CONTACTS,
-    FETCH_CONTACT,
+    FETCH_CONTACTS_RESPONSE,
     ADD_CONTACT,
+    ADD_CONTACT_RESPONSE,
     DELETE_CONTACT,
     UPDATE_CONTACT
 } from './contactTypes';
 // ========================================
 
 
- export const fetchContacts = (contacts) => {
+ export const fetchContacts = () => {
      return {
-         type: FETCH_CONTACTS,
-         payload: contacts
+         type: FETCH_CONTACTS
      }
  }
 
-
-export const addContact = (contact) => {
+export const fetchContactsResponse = (contacts) => {
     return {
-        type: ADD_CONTACT,
-        payload: contact
+        type: FETCH_CONTACTS_RESPONSE,
+        payload: contacts
     }
 }
