@@ -5,10 +5,16 @@ import PropTypes from 'prop-types';
 const Contact = (props) => {
     const { firstName, lastName, email} = props;
     return (
-      <Grid>
-          <h1>{firstName}</h1>
-          <h1>{lastName}</h1>
-          <h1>{email}</h1>
+      <Grid container justify={"center"} align={"center"}>
+          <table>
+              <Grid xs={12}>
+                  <tbody>
+                      <tr>{firstName}</tr>
+                      <tr>{lastName}</tr>
+                      <tr>{email}</tr>
+                  </tbody>
+              </Grid>
+          </table>
       </Grid>
     );
 }
