@@ -32,10 +32,9 @@ const ContactsScreen = (props) => {
     )
 }
 
-ContactsScreen.protoTypes = {
+ContactsScreen.propTypes = {
     returnedContacts: PropTypes.array,
 }
-
 
 function mapStateToProps(state) {
     return {

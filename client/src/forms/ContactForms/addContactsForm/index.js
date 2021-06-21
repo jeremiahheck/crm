@@ -80,7 +80,7 @@ const AddContactForm = (props) => {
     )
 }
 
-AddContactForm.protoTypes = {
+AddContactForm.propTypes = {
     Contacts: PropTypes.array,
 }
 

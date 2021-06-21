@@ -2,6 +2,7 @@ import React from "react";
 import {Grid} from "@material-ui/core";
 import PropTypes from 'prop-types';
 import Contact from "../contact";
+import ContactBox from "../contactBox";
 
 const ContactList = (props) => {
     const { contacts } = props;
@@ -9,11 +10,15 @@ const ContactList = (props) => {
      const renderContacts = () => {
          return contacts.map((contact) => {
             return(
-                <Contact
-                  id={contact.id}
-                  firstName={contact.firstName}
-                  lastName={contact.lastName}
-                  email={contact.email}
+                <ContactBox
+                    children={
+                        <Contact
+                            id={contact.id}
+                            firstName={contact.firstName}
+                            lastName={contact.lastName}
+                            email={contact.email}
+                        />
+                    }
                 />
             )
          })
@@ -26,7 +31,7 @@ const ContactList = (props) => {
     );
 }
 
-ContactList.prototype = {
+ContactList.propTypes = {
     contacts: PropTypes.arrayOf(Object).isRequired,
 }
 

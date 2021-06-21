@@ -19,8 +19,7 @@ const Main = (props) => {
           <Button
               children={"Contacts Screen"}
               onClick={() =>
-              {history.push(ROUTE_CONTACTS_SCREEN)
-              }}
+              {history.push(ROUTE_CONTACTS_SCREEN)}}
           />
       </Grid>
     );

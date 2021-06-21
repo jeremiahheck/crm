@@ -8,8 +8,8 @@ import {
     HOME,
     ROUTE_CONTACTS_SCREEN,
     ROUTE_ADD_CONTACT,
+    DELETE,
 } from "./routeConstants";
-
 
 function Router({history, loggedIn}) {
     return (

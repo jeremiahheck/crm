@@ -16,16 +16,20 @@ public class ContactsController {
 
     @GetMapping("/contacts")
     public ArrayList<Contact> contact() {
+//        if (contactsRepository.findAll() != null) {
+//            if (!contactsRepository.findById(1).isPresent()) {
+//                contactsRepository.save(new Contact("Jeremiah", "Heck", "email.email"));
+//            }
+//            return (ArrayList<Contact>)contactsRepository.findAll();
+//        } else {
+//            ArrayList<Contact> something = new ArrayList<Contact>();
+//            something.add(new Contact("Jeremiah", "Heck", "email.email"));
+//            return something;
+//        }
         if (contactsRepository.findAll() != null) {
-            if (!contactsRepository.findById(1).isPresent()) {
-                contactsRepository.save(new Contact("Jeremiah", "Heck", "email.email"));
-            }
-            return (ArrayList<Contact>)contactsRepository.findAll();
-        } else {
-            ArrayList<Contact> something = new ArrayList<Contact>();
-            something.add(new Contact("Jeremiah", "Heck", "email.email"));
-            return something;
+            return new ArrayList<Contact>(contactsRepository.findAll());
         }
+        return null;
     }
 
     @PostMapping(path="/addContact")
