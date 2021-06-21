@@ -12,10 +12,8 @@ export default function initReducer(state = initialState, action) {
         case FETCH_INIT_DATA :
             return state.theme;
         case CHANGE_THEME :
-            return {
-                ...state,
-                theme: action.payload,
-            }
+            state.theme = action.payload;
+            return state;
         default:
             return state;
     }
