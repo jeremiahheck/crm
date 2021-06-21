@@ -1,3 +1,5 @@
+import {fetchInit} from "./actions";
+
 export default function* initSaga() {
-    console.log("Initialization");
+    fetchInit();
 }

@@ -1,1 +1,2 @@
 export const FETCH_INIT_DATA = 'FETCH_INIT_DATA';
+export const CHANGE_THEME = 'CHANGE_THEME';

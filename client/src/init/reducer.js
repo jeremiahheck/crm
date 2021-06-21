@@ -1,20 +1,20 @@
 import {
-    FETCH_INIT_DATA
+    FETCH_INIT_DATA,
+    CHANGE_THEME
 } from './types'
-import {FETCH_CONTACTS} from "../redux/contacts/contactTypes";
 
 const initialState = {
-    loading: false,
-    name: null,
+    theme: "Light",
 }
 
 export default function initReducer(state = initialState, action) {
     switch (action.type) {
         case FETCH_INIT_DATA :
+            return state.theme;
+        case CHANGE_THEME :
             return {
                 ...state,
-                loading: state.loading,
-                name: state.name,
+                theme: action.payload,
             }
         default:
             return state;

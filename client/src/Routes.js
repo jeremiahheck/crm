@@ -18,32 +18,32 @@ function Router({history, loggedIn}) {
                 {loggedIn && (
                     <Switch>
                         <Route path={HOME}>
-                            <Main/>
+                            <Redirect to={ROUTE_CONTACTS_SCREEN}/>
                         </Route>
                         <Route path={ROUTE_CONTACTS_SCREEN}>
                             <ContactsScreen/>
                         </Route>
-                        <Route path={ROUTE_ADD_CONTACT}>
-                            <AddContactForm/>
-                        </Route>
+                        {/*<Route path={ROUTE_ADD_CONTACT}>*/}
+                        {/*    <AddContactForm/>*/}
+                        {/*</Route>*/}
                         <Route path="/">
-                            <Redirect to={HOME}/>
+                            <Redirect to={ROUTE_CONTACTS_SCREEN}/>
                         </Route>
                     </Switch>
                 )}
                 {!loggedIn && (
                     <Switch>
                         <Route path={HOME}>
-                            <Main/>
+                            <Redirect to={ROUTE_CONTACTS_SCREEN}/>
                         </Route>
                         <Route path={ROUTE_CONTACTS_SCREEN}>
                             <ContactsScreen/>
                         </Route>
-                        <Route path={ROUTE_ADD_CONTACT}>
-                            <AddContactForm/>
-                        </Route>
+                        {/*<Route path={ROUTE_ADD_CONTACT}>*/}
+                        {/*    <AddContactForm/>*/}
+                        {/*</Route>*/}
                         <Route path="/">
-                            <Redirect to={HOME}/>
+                            <Redirect to={ROUTE_CONTACTS_SCREEN}/>
                         </Route>
                     </Switch>
                 )}

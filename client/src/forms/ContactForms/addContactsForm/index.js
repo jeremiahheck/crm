@@ -1,18 +1,19 @@
 import React, {useState} from "react";
-import {ROUTE_CONTACTS_SCREEN, ROUTE_ADD_CONTACT, HOME, API} from "../../../routeConstants";
+import {ROUTE_ADD_CONTACT, API} from "../../../routeConstants";
 import {Button, Grid} from "@material-ui/core";
-import {useHistory} from "react-router";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 const AddContactForm = (props) => {
     const {Contacts} = props;
-    const history = useHistory();
     const [contact, setContact] = useState({
-        firstName : "post",
-        lastName : "post",
-        email : "post",
+        firstName : "",
+        lastName : "",
+        email : "",
     });
+
+
+
     const handleSubmit = (event) => {
         const contactJSON = JSON.stringify({
             "id": Contacts.size+1,
@@ -32,6 +33,7 @@ const AddContactForm = (props) => {
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
+        window.location.reload();
     }
 
     const handleChange = (event) => {
@@ -46,10 +48,6 @@ const AddContactForm = (props) => {
 
     return (
         <Grid>
-            <h1>
-                Add Contacts Form.
-            </h1>
-
             <form onSubmit={() => handleSubmit()}>
                 <label>
                     First Name:
@@ -65,17 +63,6 @@ const AddContactForm = (props) => {
                 </label>
                 <input type="submit" value="Submit" />
             </form>
-
-            <Button
-                children={"Back to Contacts Screen"}
-                onClick={() =>
-                {history.push(ROUTE_CONTACTS_SCREEN)}}
-            />
-            <Button
-                children={"Main Screen"}
-                onClick={() =>
-                {history.push(HOME)}}
-            />
         </Grid>
     )
 }
@@ -83,6 +70,7 @@ const AddContactForm = (props) => {
 AddContactForm.propTypes = {
     Contacts: PropTypes.array,
 }
+
 
 function mapStateToProps(state) {
     return {

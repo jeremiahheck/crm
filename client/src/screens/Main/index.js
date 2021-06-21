@@ -5,13 +5,15 @@ import {useHistory} from "react-router";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import {fetchInit} from "../../init/actions";
+import {useStyles} from "../../Theme/styles";
 
 const Main = (props) => {
     const { loading, name } = props;
     const history = useHistory();
+    const classes = useStyles();
 
     return (
-      <Grid>
+      <Grid container className={classes.main}>
           <h2>
               {/*{loading ? {name} : "Nothing Loaded :("}*/}
           </h2>

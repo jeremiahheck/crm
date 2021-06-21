@@ -1,32 +1,69 @@
 import React, {useEffect, useState} from "react";
-import ContactList from "../../common/contactsList";
-import {Button, Grid} from "@material-ui/core";
-import {useHistory} from "react-router";
-import {HOME, ROUTE_ADD_CONTACT} from "../../routeConstants";
+import List from "../../common/list";
+import {Grid, Switch} from "@material-ui/core";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import Box from "../../common/box";
+import Contact from "../../common/contact";
+import AddContactForm from "../../forms/ContactForms/addContactsForm";
+import {useStyles} from "../../Theme/styles";
+import {changeTheme} from "../../init/actions";
+
 
 const ContactsScreen = (props) => {
-    const {returnedContacts} = props;
+    const classes = useStyles();
+    const {returnedContacts, formCount, changeTheme, theme} = props;
     const [contacts, setContacts] = useState([{}]);
-    const history = useHistory();
+    const [showForm, setShowForm] = useState(formCount);
+    const items = []
+
+    for(let i = 0;i < showForm; ++i) {
+        items.push(<AddContactForm/>);
+    }
 
     useEffect(() => {
         setContacts(returnedContacts);
     })
 
+    const handleThemeChange = (theme) => {
+        if (theme === "Light") {
+            changeTheme("Dark");
+            return;
+        }
+        changeTheme("Light");
+    }
+
     return (
-        <Grid>
-            <ContactList contacts={contacts}/>
-            <Button
-                children={"Add Contact"}
-                onClick={() =>
-                {history.push(ROUTE_ADD_CONTACT)}}
-            />
-            <Button
-                children={"Main Screen"}
-                onClick={() =>
-                {history.push(HOME)}}
+        <Grid className={classes.main} container align={"center"}>
+            <Grid item xs={12}>
+                <h2>Existing Contacts</h2>
+                <List
+                    list={contacts}
+                    renderComponent={
+                        (list) => {
+                            return list.map((list) => {
+                                return(
+                                    <Box
+                                        key={list.id}
+                                        children={
+                                            <Contact
+                                                id={list.id}
+                                                firstName={list.firstName}
+                                                lastName={list.lastName}
+                                                email={list.email}
+                                            />
+                                        }
+                                    />
+                                )
+                            })
+                        }
+                    }
+                />
+                {items}
+            </Grid>
+            <Switch
+                onChange={() => {handleThemeChange(theme)}}
+                name={`Change Theme`}
             />
         </Grid>
     )
@@ -34,12 +71,25 @@ const ContactsScreen = (props) => {
 
 ContactsScreen.propTypes = {
     returnedContacts: PropTypes.array,
+    formCount: PropTypes.number.isRequired,
+    theme: PropTypes.string,
+}
+
+ContactsScreen.defaultProps = {
+    formCount: 1,
+    theme: null,
 }
 
 function mapStateToProps(state) {
     return {
-        returnedContacts: state.contact.Contacts
+        returnedContacts: state.contact.Contacts,
+        theme: state.init.theme,
     };
 }
 
-export default connect(mapStateToProps)(ContactsScreen)
+const mapDispatchToProps = {
+    changeTheme
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsScreen)

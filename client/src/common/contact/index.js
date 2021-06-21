@@ -7,7 +7,7 @@ const Contact = (props) => {
     return (
       <Grid container justify={"center"} align={"center"}>
           <table>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                   <tbody>
                       <tr>{firstName}</tr>
                       <tr>{lastName}</tr>

@@ -1,15 +1,29 @@
-import createStore from "./redux/store";
+import {fetchInit} from "./init/actions";
 import Router from "./Routes";
-import {Provider} from "react-redux";
+import {connect} from "react-redux";
+import {MuiThemeProvider} from "@material-ui/core";
+import {lightTheme} from "./Theme/Dark";
+import {darkTheme} from "./Theme/Light";
 
-const { store, history } = createStore();
 
-function App() {
-  return (
-      <Provider store={store}>
-          <Router history={history}/>
-      </Provider>
+function App(props) {
+    const {history, initTheme} = props;
+
+    return (
+        <MuiThemeProvider
+            theme={initTheme === "Light"
+            ? lightTheme
+            : darkTheme}>
+                <Router history={history}/>
+        </MuiThemeProvider>
   );
 }
 
-export default App;
+
+function mapStateToProps(state) {
+    return {
+        initTheme: state.init.theme,
+    };
+}
+
+export default connect(mapStateToProps)(App);

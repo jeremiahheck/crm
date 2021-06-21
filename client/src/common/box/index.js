@@ -1,9 +1,9 @@
-import React, {useCallback} from "react";
+import React from "react";
 import {Button, Grid} from "@material-ui/core";
 import {DELETE, API} from "../../routeConstants";
 import PropTypes from "prop-types";
 
-const ContactBox = (props) => {
+const Box = (props) => {
     const { children } = props;
 
     const deleteRequest = (id) => {
@@ -20,10 +20,10 @@ const ContactBox = (props) => {
 
     return (
         <Grid container align={"center"} >
-            <Grid xs={8}>
+            <Grid item xs={8}>
                 {children}
             </Grid>
-            <Grid xs={4}>
+            <Grid item xs={4}>
                 <Button
                 children={"Edit"}
                 >
@@ -38,8 +38,8 @@ const ContactBox = (props) => {
     )
 }
 
-ContactBox.prototype = {
+Box.prototype = {
     children: PropTypes.object.isRequired,
 }
 
-export default ContactBox;
+export default Box;
