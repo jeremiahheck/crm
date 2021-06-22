@@ -44,12 +44,11 @@ const ContactsScreen = (props) => {
                             return list.map((list) => {
                                 return(
                                     <Box
-                                        deleteButton={true}
-                                        editButton={true}
-                                        addButton={false}
                                         key={list.id}
                                         children={
                                             <Contact
+                                                editButton={true}
+                                                deleteButton={true}
                                                 id={list.id}
                                                 firstName={list.firstName}
                                                 lastName={list.lastName}
@@ -63,13 +62,18 @@ const ContactsScreen = (props) => {
                     }
                 />
                 <h2>Add a contact</h2>
-                {items}
+                <Box
+                    children={items}
+                />
+                <h2>Switch to dark mode below!</h2>
+                <Switch
+                    color="default"
+                    checked={localStorage.getItem("theme") === "Dark" && true}
+                    onChange={() => {handleThemeChange()}}
+                    name={`Change Theme`}
+                />
             </Grid>
-            <Switch
-                checked={localStorage.getItem("theme") === "Dark" && true}
-                onChange={() => {handleThemeChange()}}
-                name={`Change Theme`}
-            />
+
         </Grid>
     )
 }

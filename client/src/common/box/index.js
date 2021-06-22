@@ -9,9 +9,9 @@ const Box = (props) => {
     const classes = useStyles();
 
     return (
-        <Grid className={classes.box}>
+        <div className={classes.box}>
             {children}
-        </Grid>
+        </div>
     )
 }
 

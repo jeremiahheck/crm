@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {deleteRequest, postRequest} from "../../../utilitys";
-import {Button, Grid, TextField} from "@material-ui/core";
+import {Button, Grid, TextField, Typography} from "@material-ui/core";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {useStyles} from "../../../Theme/styles";
@@ -14,9 +14,16 @@ const AddContactForm = (props) => {
         lastName : "",
         email : "",
     });
+    const [error, setError] = useState(false);
+
+
 
     const handleSubmit = (event) => {
-        postRequest(event, Contacts, contact);
+        if (contact.firstName  === "" || contact.email === "" || contact.lastName === "" ) {
+            setError(true)
+        }  else {
+            postRequest(event, Contacts, contact);
+        }
     }
 
     const handleChange = (event) => {
@@ -26,6 +33,9 @@ const AddContactForm = (props) => {
             ...prevContact,
             [name]: value
         }));
+        if (contact.firstName !== "" || contact.email !== "" || contact.lastName !== "" ) {
+            setError(false)
+        }
     };
 
 
@@ -37,6 +47,7 @@ const AddContactForm = (props) => {
                         <Grid container spacing={1}>
                             <Grid item>
                                 <TextField
+                                    required
                                     value={contact.firstName}
                                     type="text"
                                     className={classes.inputField}
@@ -48,6 +59,7 @@ const AddContactForm = (props) => {
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    required
                                     value={contact.lastName}
                                     type="text"
                                     className={classes.inputField}
@@ -59,6 +71,7 @@ const AddContactForm = (props) => {
                             </Grid>
                             <Grid item>
                                 <TextField
+                                    required
                                     value={contact.email}
                                     type="text"
                                     className={classes.inputField}
@@ -72,12 +85,16 @@ const AddContactForm = (props) => {
                     }/>
             </Grid>
             <Grid item xs={4} container spacing={1}>
-                <Button
-                    className={classes.addButton}
-                    children={"Add"}
-                    onClick={() => handleSubmit()}
-                />
+                <Grid item>
+                    <Button
+                        className={error ? classes.addButtonError : classes.addButton}
+                        children={"Add"}
+                        onClick={() => handleSubmit()}
+                    />
+                    <Typography className={!error && classes.hide} children={`Please fill in each entry!`}/>
+                </Grid>
             </Grid>
+
         </Grid>
 
         )
