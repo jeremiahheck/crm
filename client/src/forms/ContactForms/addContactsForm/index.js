@@ -34,35 +34,41 @@ const AddContactForm = (props) => {
             <Grid  item xs={8}>
                 <Row
                     children={
-                        <div>
-                            <TextField
-                                value={contact.firstName}
-                                type="text"
-                                className={classes.inputField}
-                                label={`First Name`}
-                                variant="filled"
-                                name={"firstName"}
-                                onChange={handleChange}
-                            />
-                            <TextField
-                                value={contact.lastName}
-                                type="text"
-                                className={classes.inputField}
-                                label={`Last Name`}
-                                variant="filled"
-                                name={"lastName"}
-                                onChange={handleChange}
-                            />
-                            <TextField
-                                value={contact.email}
-                                type="text"
-                                className={classes.inputField}
-                                label={`Email`}
-                                variant="filled"
-                                name={"email"}
-                                onChange={handleChange}
-                            />
-                        </div>
+                        <Grid container spacing={1}>
+                            <Grid item>
+                                <TextField
+                                    value={contact.firstName}
+                                    type="text"
+                                    className={classes.inputField}
+                                    label={`First Name`}
+                                    variant="filled"
+                                    name={"firstName"}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    value={contact.lastName}
+                                    type="text"
+                                    className={classes.inputField}
+                                    label={`Last Name`}
+                                    variant="filled"
+                                    name={"lastName"}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <TextField
+                                    value={contact.email}
+                                    type="text"
+                                    className={classes.inputField}
+                                    label={`Email`}
+                                    variant="filled"
+                                    name={"email"}
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                        </Grid>
                     }/>
             </Grid>
             <Grid item xs={4} container spacing={1}>

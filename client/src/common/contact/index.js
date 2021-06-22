@@ -5,23 +5,26 @@ import EditRow from "../editRow";
 import Row from "../row";
 
 const Contact = (props) => {
-    const { firstName, lastName, email} = props;
+    const { firstName, lastName, email, id} = props;
     return (
-      <Grid container justify={"center"} align={"center"}>
           <Row
             children={
                 <EditRow
+                    id={id}
                     first={firstName}
                     last={lastName}
                     email={email}
+                    addButton={false}
+                    editButton={true}
+                    deleteButton={true}
                 />
             }
           />
-      </Grid>
     );
 }
 
 Contact.prototype = {
+    id: PropTypes.number.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
@@ -29,9 +32,9 @@ Contact.prototype = {
 
 Contact.defaultProps = {
     id: 0,
-    firstName: "ContactDefault",
-    lastName: "ContactDefault",
-    email: "ContactDefault",
+    firstName: "",
+    lastName: "",
+    email: "",
 }
 
 export default Contact;

@@ -30,5 +30,9 @@ export const useStyles = makeStyles((theme) => ({
     },
     row: {
        borderColor: theme.palette.background.default,
+    },
+    box :{
+        border: `1px`,
+        borderColor: theme.palette.background.default,
     }
 }));

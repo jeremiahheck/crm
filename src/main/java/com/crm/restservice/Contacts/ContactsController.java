@@ -16,16 +16,6 @@ public class ContactsController {
 
     @GetMapping("/contacts")
     public ArrayList<Contact> contact() {
-//        if (contactsRepository.findAll() != null) {
-//            if (!contactsRepository.findById(1).isPresent()) {
-//                contactsRepository.save(new Contact("Jeremiah", "Heck", "email.email"));
-//            }
-//            return (ArrayList<Contact>)contactsRepository.findAll();
-//        } else {
-//            ArrayList<Contact> something = new ArrayList<Contact>();
-//            something.add(new Contact("Jeremiah", "Heck", "email.email"));
-//            return something;
-//        }
         if (contactsRepository.findAll() != null) {
             return new ArrayList<Contact>(contactsRepository.findAll());
         }
@@ -38,12 +28,14 @@ public class ContactsController {
     }
 
     @PutMapping(path="/updateContact/{id}")
-    public void updateContact(Contact newContact,@PathVariable(value="id") long id) {
+    public void updateContact(@RequestBody Contact newContact, @PathVariable(value="id")long id) {
+
         for (Contact elem: contactsRepository.findAll()) {
             if (elem.getId() == id) {
                 elem.setFirstName(newContact.getFirstName());
                 elem.setLastName(newContact.getLastName());
                 elem.setEmail(newContact.getEmail());
+                contactsRepository.save(elem);
             }
         }
     }
