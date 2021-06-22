@@ -4,7 +4,7 @@ import {
 } from './types'
 
 const initialState = {
-    theme: "Light",
+    theme: localStorage.getItem("theme"),
 }
 
 export default function initReducer(state = initialState, action) {
@@ -12,8 +12,11 @@ export default function initReducer(state = initialState, action) {
         case FETCH_INIT_DATA :
             return state.theme;
         case CHANGE_THEME :
-            state.theme = action.payload;
-            return state;
+            window.localStorage.setItem("theme", action.payload)
+            return {
+                ...state,
+                theme: action.payload,
+            }
         default:
             return state;
     }

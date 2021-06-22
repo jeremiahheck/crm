@@ -25,12 +25,12 @@ const ContactsScreen = (props) => {
         setContacts(returnedContacts);
     })
 
-    const handleThemeChange = (theme) => {
+    const handleThemeChange = () => {
         if (theme === "Light") {
             changeTheme("Dark");
-            return;
+        } else {
+            changeTheme("Light");
         }
-        changeTheme("Light");
     }
 
     return (
@@ -62,7 +62,8 @@ const ContactsScreen = (props) => {
                 {items}
             </Grid>
             <Switch
-                onChange={() => {handleThemeChange(theme)}}
+                checked={localStorage.getItem("theme") === "Dark" && true}
+                onChange={() => {handleThemeChange()}}
                 name={`Change Theme`}
             />
         </Grid>
