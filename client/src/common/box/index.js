@@ -1,38 +1,45 @@
 import React from "react";
 import {Button, Grid} from "@material-ui/core";
-import {DELETE, API} from "../../routeConstants";
 import PropTypes from "prop-types";
+import {useStyles} from "../../Theme/styles";
+import {deleteRequest, postRequest} from "../../utilitys";
 
 const Box = (props) => {
-    const { children } = props;
-
-    const deleteRequest = (id) => {
-        const requestOptions = {
-            method: 'DELETE',
-            redirect: 'follow'
-        };
-        fetch(`${API}${DELETE}/${id}`, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-        window.location.reload();
-    }
+    const { deleteButton, editButton, addButton, children } = props;
+    const classes = useStyles();
 
     return (
-        <Grid container align={"center"} >
-            <Grid item xs={8}>
+        <Grid wrap="nowrap" container align={"center"} >
+            <Grid  item xs={8}>
                 {children}
             </Grid>
-            <Grid item xs={4}>
-                <Button
-                children={"Edit"}
-                >
-                </Button>
-                <Button
-                    children={"Delete"}
-                    onClick={() => deleteRequest(children.props.id)}
-                >
-                </Button>
+            <Grid item xs={4} container spacing={1}>
+                <Grid item >
+                    {deleteButton &&
+                    <Button
+                        className={classes.deleteButton}
+                        children={"Delete"}
+                        onClick={() => deleteRequest(children.props.id)}
+                    />
+                    }
+                </Grid>
+                <Grid item >
+                    {editButton &&
+                    <Button
+                        className={classes.editButton}
+                        children={"Edit"}
+                    />
+                    }
+                </Grid>
+                <Grid item >
+                    {addButton &&
+                    <Button
+                        className={classes.addButton}
+                        children={"Add"}
+                        onClick={() => postRequest(children.props)}
+                    />
+                    }
+                </Grid>
             </Grid>
         </Grid>
     )
@@ -40,6 +47,9 @@ const Box = (props) => {
 
 Box.prototype = {
     children: PropTypes.object.isRequired,
+    editButton: PropTypes.bool.isRequired,
+    deleteButton: PropTypes.bool.isRequired,
+    addButton: PropTypes.bool.isRequired,
 }
 
 export default Box;

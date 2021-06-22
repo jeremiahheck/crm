@@ -1,8 +1,7 @@
 import Router from "./Routes";
 import {connect} from "react-redux";
 import {MuiThemeProvider} from "@material-ui/core";
-import {lightTheme} from "./Theme/Dark";
-import {darkTheme} from "./Theme/Light";
+import {lightTheme, darkTheme} from "./Theme";
 
 
 

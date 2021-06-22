@@ -44,6 +44,9 @@ const ContactsScreen = (props) => {
                             return list.map((list) => {
                                 return(
                                     <Box
+                                        deleteButton={true}
+                                        editButton={true}
+                                        addButton={false}
                                         key={list.id}
                                         children={
                                             <Contact
@@ -59,6 +62,7 @@ const ContactsScreen = (props) => {
                         }
                     }
                 />
+                <h2>Add a contact</h2>
                 {items}
             </Grid>
             <Switch

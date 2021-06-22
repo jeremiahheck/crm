@@ -1,10 +1,13 @@
 import React, {useState} from "react";
-import {ROUTE_ADD_CONTACT, API} from "../../../routeConstants";
-import {Button, Grid} from "@material-ui/core";
+import {deleteRequest, postRequest} from "../../../utilitys";
+import {Button, Grid, TextField} from "@material-ui/core";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {useStyles} from "../../../Theme/styles";
+import Row from "../../../common/row";
 
 const AddContactForm = (props) => {
+    const classes = useStyles()
     const {Contacts} = props;
     const [contact, setContact] = useState({
         firstName : "",
@@ -12,28 +15,8 @@ const AddContactForm = (props) => {
         email : "",
     });
 
-
-
     const handleSubmit = (event) => {
-        const contactJSON = JSON.stringify({
-            "id": Contacts.size+1,
-            "firstName": contact.firstName,
-            "lastName": contact.lastName,
-            "email": contact.email
-        });
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        const requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: contactJSON,
-            redirect: 'follow'
-        };
-        fetch(`${API}${ROUTE_ADD_CONTACT}`, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-        window.location.reload();
+        postRequest(event, Contacts, contact);
     }
 
     const handleChange = (event) => {
@@ -47,24 +30,51 @@ const AddContactForm = (props) => {
 
 
     return (
-        <Grid>
-            <form onSubmit={() => handleSubmit()}>
-                <label>
-                    First Name:
-                    <input type="text" name={"firstName"} value={contact.firstName} onChange={handleChange} />
-                </label>
-                <label>
-                    Last Name:
-                    <input type="text" name={"lastName"} value={contact.lastName} onChange={handleChange} />
-                </label>
-                <label>
-                    Email:
-                    <input type="text" name={"email"} value={contact.email} onChange={handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+        <Grid wrap="nowrap" container align={"center"} >
+            <Grid  item xs={8}>
+                <Row
+                    children={
+                        <div>
+                            <TextField
+                                value={contact.firstName}
+                                type="text"
+                                className={classes.inputField}
+                                label={`First Name`}
+                                variant="filled"
+                                name={"firstName"}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                value={contact.lastName}
+                                type="text"
+                                className={classes.inputField}
+                                label={`Last Name`}
+                                variant="filled"
+                                name={"lastName"}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                value={contact.email}
+                                type="text"
+                                className={classes.inputField}
+                                label={`Email`}
+                                variant="filled"
+                                name={"email"}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    }/>
+            </Grid>
+            <Grid item xs={4} container spacing={1}>
+                <Button
+                    className={classes.addButton}
+                    children={"Add"}
+                    onClick={() => handleSubmit()}
+                />
+            </Grid>
         </Grid>
-    )
+
+        )
 }
 
 AddContactForm.propTypes = {

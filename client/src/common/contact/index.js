@@ -1,20 +1,22 @@
 import React from "react";
-import {Grid} from "@material-ui/core";
+import {Grid, Typography} from "@material-ui/core";
 import PropTypes from 'prop-types';
+import EditRow from "../editRow";
+import Row from "../row";
 
 const Contact = (props) => {
     const { firstName, lastName, email} = props;
     return (
       <Grid container justify={"center"} align={"center"}>
-          <table>
-              <Grid item xs={12}>
-                  <tbody>
-                      <tr>{firstName}</tr>
-                      <tr>{lastName}</tr>
-                      <tr>{email}</tr>
-                  </tbody>
-              </Grid>
-          </table>
+          <Row
+            children={
+                <EditRow
+                    first={firstName}
+                    last={lastName}
+                    email={email}
+                />
+            }
+          />
       </Grid>
     );
 }
